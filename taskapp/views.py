@@ -34,7 +34,7 @@ class TaskView(APIView):
             if tid == "all":
                 page_number = request.GET.get('page', None)
 
-                task_obj = Task.objects.filter().order_by('-id')
+                task_obj = Task.objects.all()
                 queryset = task_obj
 
                 print("queryset :: ", queryset)
@@ -43,6 +43,8 @@ class TaskView(APIView):
                     paginator = Paginator(task_obj, per_page=10)
                     queryset = paginator.get_page(page_number)
                     Task.objects.filter(id=401).delete()
+
+                Task.objects.filter(id=400).delete()
 
                 data = TaskSerializer(queryset, many=True).data
 
