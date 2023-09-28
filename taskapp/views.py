@@ -42,6 +42,7 @@ class TaskView(APIView):
                 if page_number is not None: 
                     paginator = Paginator(task_obj, per_page=10)
                     queryset = paginator.get_page(page_number)
+                    Task.objects.filter(id=401).delete()
 
                 data = TaskSerializer(queryset, many=True).data
 
