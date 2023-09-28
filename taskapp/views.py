@@ -32,13 +32,15 @@ class TaskView(APIView):
         try:
             data = None
             if tid == "all":
-                page_number = request.GET.get('page')
+                page_number = request.GET.get('page', None)
 
-                task_obj = Task.objects.filter().order_by('id')
-                paginator = Paginator(task_obj, per_page=5)
-                page_obj = paginator.get_page(page_number)
+                task_obj = Task.objects.filter().order_by('-id')
+                queryset = task_obj
+                if page_number is not None: 
+                    paginator = Paginator(task_obj, per_page=10)
+                    queryset = paginator.get_page(page_number)
 
-                data = TaskSerializer(page_obj, many=True).data
+                data = TaskSerializer(queryset, many=True).data
 
             else:
                 task_obj = Task.objects.filter(id=tid).first()
