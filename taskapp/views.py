@@ -36,6 +36,9 @@ class TaskView(APIView):
 
                 task_obj = Task.objects.filter().order_by('-id')
                 queryset = task_obj
+
+                print("queryset :: ", queryset)
+                
                 if page_number is not None: 
                     paginator = Paginator(task_obj, per_page=10)
                     queryset = paginator.get_page(page_number)
