@@ -10,4 +10,4 @@ tzdata==2023.3
 python-dotenv
 psycopg2-binary==2.9.5
 psycopg
-libsqlite3-dev
+
